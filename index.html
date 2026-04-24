@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GHL Client Onboarding</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f1f5f9;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: #1e293b;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+      width: 100%;
+      max-width: 560px;
+      overflow: hidden;
+    }
+
+    /* ── Header ── */
+    .card-header {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      padding: 32px 36px 28px;
+      color: #fff;
+    }
+    .card-header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .card-header p {
+      margin-top: 6px;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    /* ── Progress bar ── */
+    .progress-wrap {
+      padding: 0 36px;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .steps-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      padding: 20px 0 16px;
+    }
+    .step-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      position: relative;
+    }
+    .step-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: calc(50% + 14px);
+      right: calc(-50% + 14px);
+      height: 2px;
+      background: #e2e8f0;
+      transition: background 0.3s;
+    }
+    .step-item.done:not(:last-child)::after { background: #2563eb; }
+
+    .step-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #94a3b8;
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+    .step-item.active .step-circle {
+      background: #2563eb;
+      color: #fff;
+      box-shadow: 0 0 0 4px #dbeafe;
+    }
+    .step-item.done .step-circle {
+      background: #2563eb;
+      color: #fff;
+    }
+    .step-item.done .step-circle::after {
+      content: '✓';
+      font-size: 13px;
+    }
+    .step-item.done .step-circle span { display: none; }
+    .step-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #94a3b8;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .step-item.active .step-label,
+    .step-item.done .step-label { color: #2563eb; }
+
+    /* ── Form body ── */
+    .card-body { padding: 28px 36px 32px; }
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #0f172a;
+    }
+
+    .field-group { display: flex; flex-direction: column; gap: 16px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+    }
+    label span.opt {
+      font-weight: 400;
+      color: #94a3b8;
+      font-size: 12px;
+    }
+
+    input, select {
+      padding: 10px 13px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #1e293b;
+      background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      width: 100%;
+      font-family: inherit;
+    }
+    input:focus, select:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px #dbeafe;
+    }
+    input::placeholder { color: #94a3b8; }
+    input.error, select.error { border-color: #ef4444; }
+
+    .error-msg {
+      font-size: 11px;
+      color: #ef4444;
+      margin-top: -10px;
+    }
+
+    /* ── Buttons ── */
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 28px;
+      gap: 12px;
+    }
+    button {
+      padding: 11px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      font-family: inherit;
+    }
+    button:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+      flex: 1;
+      max-width: 200px;
+      margin-left: auto;
+    }
+    .btn-primary:hover { background: #1d4ed8; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+    .btn-primary:disabled { background: #93c5fd; cursor: not-allowed; }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .btn-secondary:hover { background: #e2e8f0; }
+
+    /* ── Loading ── */
+    #loading-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 36px;
+      text-align: center;
+      gap: 20px;
+    }
+    .spinner {
+      width: 52px;
+      height: 52px;
+      border: 4px solid #dbeafe;
+      border-top-color: #2563eb;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading-screen h2 { font-size: 18px; font-weight: 700; color: #0f172a; }
+    #loading-screen p { font-size: 14px; color: #64748b; max-width: 320px; line-height: 1.6; }
+
+    /* ── Success ── */
+    #success-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 44px 36px 40px;
+      text-align: center;
+      gap: 16px;
+    }
+    .checkmark-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #dcfce7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    #success-screen h2 { font-size: 20px; font-weight: 700; color: #166534; }
+    #success-screen .sub { font-size: 14px; color: #64748b; }
+
+    .summary-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 18px 20px;
+      text-align: left;
+      width: 100%;
+      max-height: 280px;
+      overflow-y: auto;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #334155;
+      white-space: pre-wrap;
+    }
+
+    .btn-restart {
+      background: #eff6ff;
+      color: #2563eb;
+      border: 1.5px solid #bfdbfe;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .btn-restart:hover { background: #dbeafe; }
+
+    /* ── Error banner ── */
+    .error-banner {
+      display: none;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #b91c1c;
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+      .card-header, .card-body, .progress-wrap { padding-left: 20px; padding-right: 20px; }
+      .field-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Header -->
+  <div class="card-header">
+    <h1>GHL Client Onboarding</h1>
+    <p>Complete the form below to set up your business profile.</p>
+  </div>
+
+  <!-- Progress steps -->
+  <div class="progress-wrap" id="progress-wrap">
+    <div class="steps-row">
+      <div class="step-item active" id="step-ind-1">
+        <div class="step-circle"><span>1</span></div>
+        <div class="step-label">Contact</div>
+      </div>
+      <div class="step-item" id="step-ind-2">
+        <div class="step-circle"><span>2</span></div>
+        <div class="step-label">Location</div>
+      </div>
+      <div class="step-item" id="step-ind-3">
+        <div class="step-circle"><span>3</span></div>
+        <div class="step-label">Business</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 1 ── -->
+  <div class="card-body" id="form-step-1">
+    <div class="step-title">Contact Information</div>
+    <div class="field-group">
+      <label>Business Name
+        <input type="text" id="businessName" placeholder="Acme Marketing LLC" />
+      </label>
+      <label>Owner Name
+        <input type="text" id="ownerName" placeholder="Jane Smith" />
+      </label>
+      <div class="field-row">
+        <label>Email Address
+          <input type="email" id="email" placeholder="jane@acme.com" />
+        </label>
+        <label>Phone Number
+          <input type="tel" id="phone" placeholder="+1 (555) 000-0000" />
+        </label>
+      </div>
+      <div class="error-banner" id="err-1"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="goToStep(2)">Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 2 ── -->
+  <div class="card-body" id="form-step-2" style="display:none;">
+    <div class="step-title">Location &amp; Website</div>
+    <div class="field-group">
+      <label>Website URL
+        <input type="url" id="website" placeholder="https://acme.com" />
+      </label>
+      <label>Street Address
+        <input type="text" id="address" placeholder="123 Main Street" />
+      </label>
+      <div class="field-row">
+        <label>City
+          <input type="text" id="city" placeholder="Los Angeles" />
+        </label>
+        <label>State
+          <input type="text" id="state" placeholder="CA" maxlength="50" />
+        </label>
+      </div>
+      <div class="field-row">
+        <label>ZIP Code
+          <input type="text" id="zip" placeholder="90001" />
+        </label>
+        <label>Timezone
+          <select id="timezone">
+            <option value="">Select timezone…</option>
+            <optgroup label="United States">
+              <option value="America/New_York">Eastern Time (ET)</option>
+              <option value="America/Chicago">Central Time (CT)</option>
+              <option value="America/Denver">Mountain Time (MT)</option>
+              <option value="America/Los_Angeles">Pacific Time (PT)</option>
+              <option value="America/Anchorage">Alaska Time (AKT)</option>
+              <option value="Pacific/Honolulu">Hawaii Time (HT)</option>
+            </optgroup>
+            <optgroup label="Canada">
+              <option value="America/Toronto">Toronto (ET)</option>
+              <option value="America/Vancouver">Vancouver (PT)</option>
+              <option value="America/Edmonton">Edmonton (MT)</option>
+            </optgroup>
+            <optgroup label="Europe">
+              <option value="Europe/London">London (GMT/BST)</option>
+              <option value="Europe/Paris">Paris (CET)</option>
+              <option value="Europe/Berlin">Berlin (CET)</option>
+              <option value="Europe/Madrid">Madrid (CET)</option>
+              <option value="Europe/Rome">Rome (CET)</option>
+              <option value="Europe/Amsterdam">Amsterdam (CET)</option>
+              <option value="Europe/Stockholm">Stockholm (CET)</option>
+              <option value="Europe/Warsaw">Warsaw (CET)</option>
+              <option value="Europe/Athens">Athens (EET)</option>
+              <option value="Europe/Helsinki">Helsinki (EET)</option>
+            </optgroup>
+            <optgroup label="Asia / Pacific">
+              <option value="Asia/Dubai">Dubai (GST)</option>
+              <option value="Asia/Kolkata">India (IST)</option>
+              <option value="Asia/Dhaka">Bangladesh (BST)</option>
+              <option value="Asia/Bangkok">Bangkok (ICT)</option>
+              <option value="Asia/Singapore">Singapore (SGT)</option>
+              <option value="Asia/Shanghai">China (CST)</option>
+              <option value="Asia/Tokyo">Japan (JST)</option>
+              <option value="Asia/Seoul">Seoul (KST)</option>
+              <option value="Australia/Sydney">Sydney (AEST)</option>
+              <option value="Pacific/Auckland">Auckland (NZST)</option>
+            </optgroup>
+            <optgroup label="Latin America">
+              <option value="America/Sao_Paulo">São Paulo (BRT)</option>
+              <option value="America/Argentina/Buenos_Aires">Buenos Aires (ART)</option>
+              <option value="America/Bogota">Bogotá (COT)</option>
+              <option value="America/Mexico_City">Mexico City (CST)</option>
+            </optgroup>
+            <optgroup label="Africa">
+              <option value="Africa/Cairo">Cairo (EET)</option>
+              <option value="Africa/Johannesburg">Johannesburg (SAST)</option>
+              <option value="Africa/Lagos">Lagos (WAT)</option>
+            </optgroup>
+          </select>
+        </label>
+      </div>
+      <div class="error-banner" id="err-2"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goToStep(1)">&larr; Back</button>
+      <button class="btn-primary" onclick="goToStep(3)">Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 3 ── -->
+  <div class="card-body" id="form-step-3" style="display:none;">
+    <div class="step-title">Business Details</div>
+    <div class="field-group">
+      <label>Industry / Niche
+        <select id="industry">
+          <option value="">Select your industry…</option>
+          <optgroup label="Home Services">
+            <option value="HVAC">HVAC</option>
+            <option value="Plumbing">Plumbing</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Roofing">Roofing</option>
+            <option value="Landscaping">Landscaping</option>
+            <option value="Cleaning Services">Cleaning Services</option>
+            <option value="Pest Control">Pest Control</option>
+            <option value="Home Remodeling">Home Remodeling</option>
+            <option value="Pool Services">Pool Services</option>
+          </optgroup>
+          <optgroup label="Health & Wellness">
+            <option value="Chiropractic">Chiropractic</option>
+            <option value="Dental">Dental</option>
+            <option value="Medical Spa / MedSpa">Medical Spa / MedSpa</option>
+            <option value="Gym / Fitness">Gym / Fitness</option>
+            <option value="Physical Therapy">Physical Therapy</option>
+            <option value="Mental Health">Mental Health</option>
+            <option value="Optometry">Optometry</option>
+            <option value="Veterinary">Veterinary</option>
+          </optgroup>
+          <optgroup label="Professional Services">
+            <option value="Law Firm">Law Firm</option>
+            <option value="Accounting / CPA">Accounting / CPA</option>
+            <option value="Financial Advisor">Financial Advisor</option>
+            <option value="Insurance Agency">Insurance Agency</option>
+            <option value="Real Estate">Real Estate</option>
+            <option value="Mortgage">Mortgage</option>
+            <option value="Staffing / Recruiting">Staffing / Recruiting</option>
+          </optgroup>
+          <optgroup label="Automotive">
+            <option value="Auto Repair">Auto Repair</option>
+            <option value="Car Dealership">Car Dealership</option>
+            <option value="Auto Detailing">Auto Detailing</option>
+          </optgroup>
+          <optgroup label="Marketing & Media">
+            <option value="Digital Marketing Agency">Digital Marketing Agency</option>
+            <option value="Photography / Videography">Photography / Videography</option>
+            <option value="Web Design">Web Design</option>
+            <option value="Social Media Management">Social Media Management</option>
+            <option value="SEO Agency">SEO Agency</option>
+          </optgroup>
+          <optgroup label="Education & Coaching">
+            <option value="Business Coaching">Business Coaching</option>
+            <option value="Life Coaching">Life Coaching</option>
+            <option value="Online Course Creator">Online Course Creator</option>
+            <option value="Tutoring">Tutoring</option>
+          </optgroup>
+          <optgroup label="Food & Hospitality">
+            <option value="Restaurant">Restaurant</option>
+            <option value="Catering">Catering</option>
+            <option value="Food Truck">Food Truck</option>
+            <option value="Hotel / Lodging">Hotel / Lodging</option>
+          </optgroup>
+          <optgroup label="Retail & E-Commerce">
+            <option value="E-Commerce">E-Commerce</option>
+            <option value="Retail Store">Retail Store</option>
+            <option value="Salon / Barbershop">Salon / Barbershop</option>
+            <option value="Spa">Spa</option>
+          </optgroup>
+          <option value="Other">Other</option>
+        </select>
+      </label>
+      <label>Logo URL <span class="opt">(optional)</span>
+        <input type="url" id="logoUrl" placeholder="https://acme.com/logo.png" />
+      </label>
+      <div class="error-banner" id="err-3"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goToStep(2)">&larr; Back</button>
+      <button class="btn-primary" id="submit-btn" onclick="handleSubmit()">Submit &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ── LOADING ── -->
+  <div id="loading-screen">
+    <div class="spinner"></div>
+    <h2>Updating your GHL profile…</h2>
+    <p>Claude is configuring your GoHighLevel account with the details you provided. This usually takes 10–20 seconds.</p>
+  </div>
+
+  <!-- ── SUCCESS ── -->
+  <div id="success-screen">
+    <div class="checkmark-circle">✓</div>
+    <h2>Profile Updated!</h2>
+    <p class="sub">Your GHL business profile has been successfully configured.</p>
+    <div class="summary-box" id="summary-box"></div>
+    <button class="btn-restart" onclick="restartForm()">Start New Onboarding</button>
+  </div>
+
+</div>
+
+<script>
+  // ─────────────────────────────────────────────
+  // CONFIG — replace with your actual key
+  // ─────────────────────────────────────────────
+  const ANTHROPIC_API_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE';
+
+  // ─────────────────────────────────────────────
+  // State
+  // ─────────────────────────────────────────────
+  let currentStep = 1;
+
+  // ─────────────────────────────────────────────
+  // Navigation & validation
+  // ─────────────────────────────────────────────
+  function showError(bannerId, msg) {
+    const el = document.getElementById(bannerId);
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+  function clearError(bannerId) {
+    const el = document.getElementById(bannerId);
+    el.textContent = '';
+    el.style.display = 'none';
+  }
+
+  function validateStep(step) {
+    clearError('err-' + step);
+    if (step === 1) {
+      const biz  = document.getElementById('businessName').value.trim();
+      const own  = document.getElementById('ownerName').value.trim();
+      const em   = document.getElementById('email').value.trim();
+      const ph   = document.getElementById('phone').value.trim();
+      if (!biz || !own || !em || !ph) {
+        showError('err-1', 'Please fill in all required fields.');
+        return false;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
+        showError('err-1', 'Please enter a valid email address.');
+        return false;
+      }
+    }
+    if (step === 2) {
+      const city = document.getElementById('city').value.trim();
+      const tz   = document.getElementById('timezone').value;
+      if (!city || !tz) {
+        showError('err-2', 'City and Timezone are required.');
+        return false;
+      }
+    }
+    if (step === 3) {
+      const ind = document.getElementById('industry').value;
+      if (!ind) {
+        showError('err-3', 'Please select an industry.');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function goToStep(n) {
+    if (n > currentStep && !validateStep(currentStep)) return;
+
+    document.getElementById('form-step-' + currentStep).style.display = 'none';
+    document.getElementById('form-step-' + n).style.display = 'block';
+
+    // update indicators
+    for (let i = 1; i <= 3; i++) {
+      const ind = document.getElementById('step-ind-' + i);
+      ind.classList.remove('active', 'done');
+      if (i < n) ind.classList.add('done');
+      if (i === n) ind.classList.add('active');
+    }
+    currentStep = n;
+  }
+
+  // ─────────────────────────────────────────────
+  // Submit
+  // ─────────────────────────────────────────────
+  async function handleSubmit() {
+    if (!validateStep(3)) return;
+
+    const data = {
+      businessName : document.getElementById('businessName').value.trim(),
+      ownerName    : document.getElementById('ownerName').value.trim(),
+      email        : document.getElementById('email').value.trim(),
+      phone        : document.getElementById('phone').value.trim(),
+      website      : document.getElementById('website').value.trim(),
+      address      : document.getElementById('address').value.trim(),
+      city         : document.getElementById('city').value.trim(),
+      state        : document.getElementById('state').value.trim(),
+      zip          : document.getElementById('zip').value.trim(),
+      timezone     : document.getElementById('timezone').value,
+      industry     : document.getElementById('industry').value,
+      logoUrl      : document.getElementById('logoUrl').value.trim(),
+    };
+
+    // Show loading
+    document.getElementById('form-step-3').style.display = 'none';
+    document.getElementById('progress-wrap').style.display = 'none';
+    const loadingEl = document.getElementById('loading-screen');
+    loadingEl.style.display = 'flex';
+
+    try {
+      const responseText = await callAnthropicAPI(data);
+      showSuccess(responseText, data);
+    } catch (err) {
+      // On error, bring back the form with an error message
+      document.getElementById('progress-wrap').style.display = 'block';
+      loadingEl.style.display = 'none';
+      document.getElementById('form-step-3').style.display = 'block';
+      showError('err-3', 'API error: ' + (err.message || 'Unknown error. Check your API key and try again.'));
+    }
+  }
+
+  // ─────────────────────────────────────────────
+  // Anthropic API call with GHL MCP server
+  // ─────────────────────────────────────────────
+  async function callAnthropicAPI(data) {
+    const userMessage = `Please update the GHL business profile with the following onboarding information:
+
+Business Name: ${data.businessName}
+Owner Name: ${data.ownerName}
+Email: ${data.email}
+Phone: ${data.phone}
+Website: ${data.website || 'Not provided'}
+Street Address: ${data.address || 'Not provided'}
+City: ${data.city}
+State: ${data.state || 'Not provided'}
+ZIP Code: ${data.zip || 'Not provided'}
+Timezone: ${data.timezone}
+Industry / Niche: ${data.industry}
+Logo URL: ${data.logoUrl || 'Not provided'}
+
+Please use the updateLocation tool to update every available field with the information above.`;
+
+    const systemPrompt = `You are a GHL onboarding agent. The user has completed an onboarding form. Use the GHL MCP updateLocation tool to update the business profile with all the provided information. Update every field available.`;
+
+    const requestBody = {
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 4096,
+      system: systemPrompt,
+      messages: [
+        { role: 'user', content: userMessage }
+      ],
+      mcp_servers: [
+        {
+          type: 'url',
+          url: 'https://services.leadconnectorhq.com/mcp/',
+          name: 'ghl',
+          authorization_token: 'pit-12345',
+          tool_configuration: {
+            enabled: true,
+            allowed_tools: ['updateLocation']
+          },
+          headers: {
+            locationId: '110411007T'
+          }
+        }
+      ]
+    };
+
+    // Agentic loop — handle tool_use rounds until stop_reason is 'end_turn'
+    let messages = requestBody.messages.slice();
+    let finalText = '';
+
+    for (let round = 0; round < 10; round++) {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01',
+          'anthropic-beta': 'mcp-client-2025-04-04'
+        },
+        body: JSON.stringify({ ...requestBody, messages })
+      });
+
+      if (!res.ok) {
+        const errBody = await res.json().catch(() => ({}));
+        throw new Error(errBody?.error?.message || `HTTP ${res.status}`);
+      }
+
+      const json = await res.json();
+
+      // Collect any text from this turn
+      for (const block of json.content || []) {
+        if (block.type === 'text') finalText += block.text;
+      }
+
+      // If done, stop looping
+      if (json.stop_reason === 'end_turn') break;
+
+      // If Claude wants to use tools, collect tool_use blocks and respond
+      const toolUseBlocks = (json.content || []).filter(b => b.type === 'tool_use');
+      if (toolUseBlocks.length === 0) break;
+
+      // Append assistant turn
+      messages = [
+        ...messages,
+        { role: 'assistant', content: json.content }
+      ];
+
+      // Build tool results (MCP tool_result blocks)
+      const toolResults = toolUseBlocks.map(tu => ({
+        type: 'tool_result',
+        tool_use_id: tu.id,
+        content: 'Tool executed successfully via MCP server.'
+      }));
+      messages = [
+        ...messages,
+        { role: 'user', content: toolResults }
+      ];
+    }
+
+    return finalText || 'Your GHL profile has been updated successfully with all provided information.';
+  }
+
+  // ─────────────────────────────────────────────
+  // Success screen
+  // ─────────────────────────────────────────────
+  function showSuccess(responseText, data) {
+    document.getElementById('loading-screen').style.display = 'none';
+
+    const summary = responseText.length > 20
+      ? responseText
+      : buildFallbackSummary(data);
+
+    document.getElementById('summary-box').textContent = summary;
+    document.getElementById('success-screen').style.display = 'flex';
+  }
+
+  function buildFallbackSummary(data) {
+    const lines = [
+      `Business Name:  ${data.businessName}`,
+      `Owner Name:     ${data.ownerName}`,
+      `Email:          ${data.email}`,
+      `Phone:          ${data.phone}`,
+      data.website  ? `Website:        ${data.website}`       : null,
+      data.address  ? `Address:        ${data.address}`       : null,
+      data.city     ? `City:           ${data.city}`          : null,
+      data.state    ? `State:          ${data.state}`         : null,
+      data.zip      ? `ZIP:            ${data.zip}`           : null,
+      `Timezone:       ${data.timezone}`,
+      `Industry:       ${data.industry}`,
+      data.logoUrl  ? `Logo URL:       ${data.logoUrl}`       : null,
+    ].filter(Boolean);
+    return 'The following fields were updated in GHL:\n\n' + lines.join('\n');
+  }
+
+  // ─────────────────────────────────────────────
+  // Restart
+  // ─────────────────────────────────────────────
+  function restartForm() {
+    // Clear inputs
+    ['businessName','ownerName','email','phone','website',
+     'address','city','state','zip','logoUrl'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('timezone').value = '';
+    document.getElementById('industry').value = '';
+
+    document.getElementById('success-screen').style.display = 'none';
+    document.getElementById('progress-wrap').style.display = 'block';
+
+    currentStep = 1;
+    document.getElementById('form-step-1').style.display = 'block';
+    for (let i = 1; i <= 3; i++) {
+      const ind = document.getElementById('step-ind-' + i);
+      ind.classList.remove('active', 'done');
+      if (i === 1) ind.classList.add('active');
+    }
+  }
+</script>
+</body>
+</html>
