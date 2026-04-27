@@ -33,16 +33,8 @@
       padding: 32px 36px 28px;
       color: #fff;
     }
-    .card-header h1 {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-    }
-    .card-header p {
-      margin-top: 6px;
-      font-size: 14px;
-      opacity: 0.85;
-    }
+    .card-header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+    .card-header p  { margin-top: 6px; font-size: 14px; opacity: 0.85; }
 
     /* ── Progress bar ── */
     .progress-wrap {
@@ -53,7 +45,6 @@
     .steps-row {
       display: flex;
       align-items: flex-start;
-      gap: 0;
       padding: 20px 0 16px;
     }
     .step-item {
@@ -96,37 +87,18 @@
       color: #fff;
       box-shadow: 0 0 0 4px #dbeafe;
     }
-    .step-item.done .step-circle {
-      background: #2563eb;
-      color: #fff;
-    }
-    .step-item.done .step-circle::after {
-      content: '✓';
-      font-size: 13px;
-    }
+    .step-item.done .step-circle { background: #2563eb; color: #fff; }
+    .step-item.done .step-circle::after { content: '✓'; font-size: 13px; }
     .step-item.done .step-circle span { display: none; }
-    .step-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: #94a3b8;
-      text-align: center;
-      white-space: nowrap;
-    }
+    .step-label { font-size: 11px; font-weight: 600; color: #94a3b8; text-align: center; white-space: nowrap; }
     .step-item.active .step-label,
-    .step-item.done .step-label { color: #2563eb; }
+    .step-item.done  .step-label { color: #2563eb; }
 
     /* ── Form body ── */
     .card-body { padding: 28px 36px 32px; }
-
-    .step-title {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: #0f172a;
-    }
-
+    .step-title { font-size: 16px; font-weight: 700; margin-bottom: 20px; color: #0f172a; }
     .field-group { display: flex; flex-direction: column; gap: 16px; }
-    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field-row   { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
     label {
       display: flex;
@@ -136,11 +108,7 @@
       font-weight: 600;
       color: #475569;
     }
-    label span.opt {
-      font-weight: 400;
-      color: #94a3b8;
-      font-size: 12px;
-    }
+    label span.opt { font-weight: 400; color: #94a3b8; font-size: 12px; }
 
     input, select {
       padding: 10px 13px;
@@ -159,12 +127,16 @@
       box-shadow: 0 0 0 3px #dbeafe;
     }
     input::placeholder { color: #94a3b8; }
-    input.error, select.error { border-color: #ef4444; }
 
-    .error-msg {
-      font-size: 11px;
-      color: #ef4444;
-      margin-top: -10px;
+    .error-banner {
+      display: none;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #b91c1c;
+      line-height: 1.5;
     }
 
     /* ── Buttons ── */
@@ -196,10 +168,7 @@
     .btn-primary:hover { background: #1d4ed8; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
     .btn-primary:disabled { background: #93c5fd; cursor: not-allowed; }
 
-    .btn-secondary {
-      background: #f1f5f9;
-      color: #475569;
-    }
+    .btn-secondary { background: #f1f5f9; color: #475569; }
     .btn-secondary:hover { background: #e2e8f0; }
 
     /* ── Loading ── */
@@ -222,7 +191,7 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
     #loading-screen h2 { font-size: 18px; font-weight: 700; color: #0f172a; }
-    #loading-screen p { font-size: 14px; color: #64748b; max-width: 320px; line-height: 1.6; }
+    #loading-screen p  { font-size: 14px; color: #64748b; max-width: 320px; line-height: 1.6; }
 
     /* ── Success ── */
     #success-screen {
@@ -246,7 +215,7 @@
     }
     @keyframes pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-    #success-screen h2 { font-size: 20px; font-weight: 700; color: #166534; }
+    #success-screen h2   { font-size: 20px; font-weight: 700; color: #166534; }
     #success-screen .sub { font-size: 14px; color: #64748b; }
 
     .summary-box {
@@ -256,13 +225,12 @@
       padding: 18px 20px;
       text-align: left;
       width: 100%;
-      max-height: 280px;
-      overflow-y: auto;
       font-size: 13.5px;
-      line-height: 1.7;
+      line-height: 1.8;
       color: #334155;
-      white-space: pre-wrap;
     }
+    .summary-box .row { display: flex; gap: 8px; }
+    .summary-box .lbl { font-weight: 600; color: #475569; min-width: 130px; }
 
     .btn-restart {
       background: #eff6ff;
@@ -276,19 +244,6 @@
       margin-top: 4px;
     }
     .btn-restart:hover { background: #dbeafe; }
-
-    /* ── Error banner ── */
-    .error-banner {
-      display: none;
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-size: 13px;
-      color: #b91c1c;
-      margin-top: 16px;
-      line-height: 1.5;
-    }
 
     @media (max-width: 480px) {
       .card-header, .card-body, .progress-wrap { padding-left: 20px; padding-right: 20px; }
@@ -306,7 +261,7 @@
     <p>Complete the form below to set up your business profile.</p>
   </div>
 
-  <!-- Progress steps -->
+  <!-- Progress -->
   <div class="progress-wrap" id="progress-wrap">
     <div class="steps-row">
       <div class="step-item active" id="step-ind-1">
@@ -510,7 +465,7 @@
     </div>
     <div class="btn-row">
       <button class="btn-secondary" onclick="goToStep(2)">&larr; Back</button>
-      <button class="btn-primary" id="submit-btn" onclick="handleSubmit()">Submit &rarr;</button>
+      <button class="btn-primary" onclick="handleSubmit()">Submit &rarr;</button>
     </div>
   </div>
 
@@ -518,7 +473,7 @@
   <div id="loading-screen">
     <div class="spinner"></div>
     <h2>Updating your GHL profile…</h2>
-    <p>Claude is configuring your GoHighLevel account with the details you provided. This usually takes 10–20 seconds.</p>
+    <p>Sending your information to GoHighLevel. This usually takes just a moment.</p>
   </div>
 
   <!-- ── SUCCESS ── -->
@@ -534,9 +489,12 @@
 
 <script>
   // ─────────────────────────────────────────────
-  // CONFIG — replace with your actual key
+  // GHL API CONFIG
   // ─────────────────────────────────────────────
-  const ANTHROPIC_API_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE';
+  const GHL_LOCATION_ID  = '110411007T';
+  const GHL_API_TOKEN    = 'pit-12345';
+  const GHL_API_BASE_URL = 'https://services.leadconnectorhq.com';
+  const GHL_API_VERSION  = '2021-07-28';
 
   // ─────────────────────────────────────────────
   // State
@@ -544,15 +502,15 @@
   let currentStep = 1;
 
   // ─────────────────────────────────────────────
-  // Navigation & validation
+  // Validation helpers
   // ─────────────────────────────────────────────
-  function showError(bannerId, msg) {
-    const el = document.getElementById(bannerId);
+  function showError(id, msg) {
+    const el = document.getElementById(id);
     el.textContent = msg;
     el.style.display = 'block';
   }
-  function clearError(bannerId) {
-    const el = document.getElementById(bannerId);
+  function clearError(id) {
+    const el = document.getElementById(id);
     el.textContent = '';
     el.style.display = 'none';
   }
@@ -560,10 +518,10 @@
   function validateStep(step) {
     clearError('err-' + step);
     if (step === 1) {
-      const biz  = document.getElementById('businessName').value.trim();
-      const own  = document.getElementById('ownerName').value.trim();
-      const em   = document.getElementById('email').value.trim();
-      const ph   = document.getElementById('phone').value.trim();
+      const biz = document.getElementById('businessName').value.trim();
+      const own = document.getElementById('ownerName').value.trim();
+      const em  = document.getElementById('email').value.trim();
+      const ph  = document.getElementById('phone').value.trim();
       if (!biz || !own || !em || !ph) {
         showError('err-1', 'Please fill in all required fields.');
         return false;
@@ -582,8 +540,7 @@
       }
     }
     if (step === 3) {
-      const ind = document.getElementById('industry').value;
-      if (!ind) {
+      if (!document.getElementById('industry').value) {
         showError('err-3', 'Please select an industry.');
         return false;
       }
@@ -591,13 +548,13 @@
     return true;
   }
 
+  // ─────────────────────────────────────────────
+  // Step navigation
+  // ─────────────────────────────────────────────
   function goToStep(n) {
     if (n > currentStep && !validateStep(currentStep)) return;
-
     document.getElementById('form-step-' + currentStep).style.display = 'none';
     document.getElementById('form-step-' + n).style.display = 'block';
-
-    // update indicators
     for (let i = 1; i <= 3; i++) {
       const ind = document.getElementById('step-ind-' + i);
       ind.classList.remove('active', 'done');
@@ -608,7 +565,7 @@
   }
 
   // ─────────────────────────────────────────────
-  // Submit
+  // Submit — PUT to GHL Locations API
   // ─────────────────────────────────────────────
   async function handleSubmit() {
     if (!validateStep(3)) return;
@@ -628,164 +585,84 @@
       logoUrl      : document.getElementById('logoUrl').value.trim(),
     };
 
+    // Build GHL payload — only include non-empty fields
+    const payload = {};
+    if (data.businessName) payload.name         = data.businessName;
+    if (data.ownerName)    payload.ownerName     = data.ownerName;
+    if (data.email)        payload.email         = data.email;
+    if (data.phone)        payload.phone         = data.phone;
+    if (data.website)      payload.website       = data.website;
+    if (data.address)      payload.address       = data.address;
+    if (data.city)         payload.city          = data.city;
+    if (data.state)        payload.state         = data.state;
+    if (data.zip)          payload.postalCode    = data.zip;
+    if (data.timezone)     payload.timezone      = data.timezone;
+    if (data.industry)     payload.businessType  = data.industry;
+    if (data.logoUrl)      payload.logoUrl       = data.logoUrl;
+
     // Show loading
     document.getElementById('form-step-3').style.display = 'none';
     document.getElementById('progress-wrap').style.display = 'none';
-    const loadingEl = document.getElementById('loading-screen');
-    loadingEl.style.display = 'flex';
+    document.getElementById('loading-screen').style.display = 'flex';
 
     try {
-      const responseText = await callAnthropicAPI(data);
-      showSuccess(responseText, data);
-    } catch (err) {
-      // On error, bring back the form with an error message
-      document.getElementById('progress-wrap').style.display = 'block';
-      loadingEl.style.display = 'none';
-      document.getElementById('form-step-3').style.display = 'block';
-      showError('err-3', 'API error: ' + (err.message || 'Unknown error. Check your API key and try again.'));
-    }
-  }
-
-  // ─────────────────────────────────────────────
-  // Anthropic API call with GHL MCP server
-  // ─────────────────────────────────────────────
-  async function callAnthropicAPI(data) {
-    const userMessage = `Please update the GHL business profile with the following onboarding information:
-
-Business Name: ${data.businessName}
-Owner Name: ${data.ownerName}
-Email: ${data.email}
-Phone: ${data.phone}
-Website: ${data.website || 'Not provided'}
-Street Address: ${data.address || 'Not provided'}
-City: ${data.city}
-State: ${data.state || 'Not provided'}
-ZIP Code: ${data.zip || 'Not provided'}
-Timezone: ${data.timezone}
-Industry / Niche: ${data.industry}
-Logo URL: ${data.logoUrl || 'Not provided'}
-
-Please use the updateLocation tool to update every available field with the information above.`;
-
-    const systemPrompt = `You are a GHL onboarding agent. The user has completed an onboarding form. Use the GHL MCP updateLocation tool to update the business profile with all the provided information. Update every field available.`;
-
-    const requestBody = {
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 4096,
-      system: systemPrompt,
-      messages: [
-        { role: 'user', content: userMessage }
-      ],
-      mcp_servers: [
-        {
-          type: 'url',
-          url: 'https://services.leadconnectorhq.com/mcp/',
-          name: 'ghl',
-          authorization_token: 'pit-12345',
-          tool_configuration: {
-            enabled: true,
-            allowed_tools: ['updateLocation']
-          },
-          headers: {
-            locationId: '110411007T'
-          }
-        }
-      ]
-    };
-
-    // Agentic loop — handle tool_use rounds until stop_reason is 'end_turn'
-    let messages = requestBody.messages.slice();
-    let finalText = '';
-
-    for (let round = 0; round < 10; round++) {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
+      const res = await fetch(`${GHL_API_BASE_URL}/locations/${GHL_LOCATION_ID}`, {
+        method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': ANTHROPIC_API_KEY,
-          'anthropic-version': '2023-06-01',
-          'anthropic-beta': 'mcp-client-2025-04-04'
+          'Authorization' : `Bearer ${GHL_API_TOKEN}`,
+          'Content-Type'  : 'application/json',
+          'Version'       : GHL_API_VERSION,
         },
-        body: JSON.stringify({ ...requestBody, messages })
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) {
         const errBody = await res.json().catch(() => ({}));
-        throw new Error(errBody?.error?.message || `HTTP ${res.status}`);
+        throw new Error(errBody?.message || `GHL API returned ${res.status}`);
       }
 
-      const json = await res.json();
-
-      // Collect any text from this turn
-      for (const block of json.content || []) {
-        if (block.type === 'text') finalText += block.text;
-      }
-
-      // If done, stop looping
-      if (json.stop_reason === 'end_turn') break;
-
-      // If Claude wants to use tools, collect tool_use blocks and respond
-      const toolUseBlocks = (json.content || []).filter(b => b.type === 'tool_use');
-      if (toolUseBlocks.length === 0) break;
-
-      // Append assistant turn
-      messages = [
-        ...messages,
-        { role: 'assistant', content: json.content }
-      ];
-
-      // Build tool results (MCP tool_result blocks)
-      const toolResults = toolUseBlocks.map(tu => ({
-        type: 'tool_result',
-        tool_use_id: tu.id,
-        content: 'Tool executed successfully via MCP server.'
-      }));
-      messages = [
-        ...messages,
-        { role: 'user', content: toolResults }
-      ];
+      showSuccess(data);
+    } catch (err) {
+      document.getElementById('progress-wrap').style.display = 'block';
+      document.getElementById('loading-screen').style.display = 'none';
+      document.getElementById('form-step-3').style.display = 'block';
+      showError('err-3', 'Error: ' + (err.message || 'Something went wrong. Please try again.'));
     }
-
-    return finalText || 'Your GHL profile has been updated successfully with all provided information.';
   }
 
   // ─────────────────────────────────────────────
   // Success screen
   // ─────────────────────────────────────────────
-  function showSuccess(responseText, data) {
+  function showSuccess(data) {
     document.getElementById('loading-screen').style.display = 'none';
 
-    const summary = responseText.length > 20
-      ? responseText
-      : buildFallbackSummary(data);
-
-    document.getElementById('summary-box').textContent = summary;
-    document.getElementById('success-screen').style.display = 'flex';
-  }
-
-  function buildFallbackSummary(data) {
-    const lines = [
-      `Business Name:  ${data.businessName}`,
-      `Owner Name:     ${data.ownerName}`,
-      `Email:          ${data.email}`,
-      `Phone:          ${data.phone}`,
-      data.website  ? `Website:        ${data.website}`       : null,
-      data.address  ? `Address:        ${data.address}`       : null,
-      data.city     ? `City:           ${data.city}`          : null,
-      data.state    ? `State:          ${data.state}`         : null,
-      data.zip      ? `ZIP:            ${data.zip}`           : null,
-      `Timezone:       ${data.timezone}`,
-      `Industry:       ${data.industry}`,
-      data.logoUrl  ? `Logo URL:       ${data.logoUrl}`       : null,
+    const rows = [
+      ['Business Name', data.businessName],
+      ['Owner Name',    data.ownerName],
+      ['Email',         data.email],
+      ['Phone',         data.phone],
+      data.website  ? ['Website',    data.website]  : null,
+      data.address  ? ['Address',    data.address]  : null,
+      data.city     ? ['City',       data.city]     : null,
+      data.state    ? ['State',      data.state]    : null,
+      data.zip      ? ['ZIP',        data.zip]      : null,
+      ['Timezone',      data.timezone],
+      ['Industry',      data.industry],
+      data.logoUrl  ? ['Logo URL',   data.logoUrl]  : null,
     ].filter(Boolean);
-    return 'The following fields were updated in GHL:\n\n' + lines.join('\n');
+
+    const box = document.getElementById('summary-box');
+    box.innerHTML = rows.map(([lbl, val]) =>
+      `<div class="row"><span class="lbl">${lbl}:</span><span>${val}</span></div>`
+    ).join('');
+
+    document.getElementById('success-screen').style.display = 'flex';
   }
 
   // ─────────────────────────────────────────────
   // Restart
   // ─────────────────────────────────────────────
   function restartForm() {
-    // Clear inputs
     ['businessName','ownerName','email','phone','website',
      'address','city','state','zip','logoUrl'].forEach(id => {
       document.getElementById(id).value = '';
