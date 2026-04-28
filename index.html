@@ -678,25 +678,8 @@
     if (d.timezone)      payload.timezone   = d.timezone;
     if (d.logoUrl)       payload.logoUrl    = d.logoUrl;
 
-    // Authorized Representative (nested)
-    const rep = {};
-    if (d.repFirstName)  rep.firstName   = d.repFirstName;
-    if (d.repLastName)   rep.lastName    = d.repLastName;
-    if (d.repEmail)      rep.email       = d.repEmail;
-    if (d.jobPosition)   rep.jobPosition = d.jobPosition;
-    if (d.repPhone)      rep.phone       = d.repPhone;
-    if (Object.keys(rep).length) payload.authRepresentative = rep;
-
-    // Business information (nested)
-    const biz = {};
-    if (d.niche)            biz.niche              = d.niche;
-    if (d.currency)         biz.currency           = d.currency;
-    if (d.businessType)     biz.type               = d.businessType;
-    if (d.businessIndustry) biz.industry           = d.businessIndustry;
-    if (d.regIdType)        biz.registrationIdType = d.regIdType;
-    if (d.regNumber)        biz.registrationNumber = d.regNumber;
-    if (d.regions.length)   biz.regionsOfOperation = d.regions;
-    if (Object.keys(biz).length) payload.business = biz;
+    // Note: authRepresentative and business nested objects are not accepted
+    // by the GHL Locations API. Those fields are collected for reference only.
 
     // Show loading
     document.getElementById('form-step-4').style.display = 'none';
