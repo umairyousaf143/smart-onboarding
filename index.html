@@ -505,7 +505,8 @@
   const GHL_API_VERSION  = '2021-07-28';
 
   // Read location ID from ?location= URL param
-  const GHL_LOCATION_ID = new URLSearchParams(window.location.search).get('location');
+  const params = new URLSearchParams(window.location.search);
+  const GHL_LOCATION_ID = params.get('location');
 
   // ─────────────────────────────────────────────
   // State
@@ -624,7 +625,9 @@
     document.getElementById('loading-screen').style.display = 'flex';
 
     try {
-      const res = await fetch(`${GHL_API_BASE_URL}/locations/${GHL_LOCATION_ID}`, {
+      const fetchUrl = `${GHL_API_BASE_URL}/locations/${GHL_LOCATION_ID}`;
+      console.log('GHL PUT request URL:', fetchUrl);
+      const res = await fetch(fetchUrl, {
         method: 'PUT',
         headers: {
           'Authorization' : `Bearer ${GHL_API_TOKEN}`,
