@@ -469,6 +469,15 @@
     </div>
   </div>
 
+  <!-- ── INVALID LINK ── -->
+  <div id="invalid-screen" style="display:none;">
+    <div style="padding:56px 36px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:16px;">⚠️</div>
+      <h2 style="font-size:18px;font-weight:700;color:#b91c1c;margin-bottom:10px;">Invalid Onboarding Link</h2>
+      <p style="font-size:14px;color:#64748b;line-height:1.6;">Please contact your agency to get a valid onboarding link.</p>
+    </div>
+  </div>
+
   <!-- ── LOADING ── -->
   <div id="loading-screen">
     <div class="spinner"></div>
@@ -491,15 +500,24 @@
   // ─────────────────────────────────────────────
   // GHL API CONFIG
   // ─────────────────────────────────────────────
-  const GHL_LOCATION_ID  = '110411007T';
   const GHL_API_TOKEN    = 'pit-12345';
   const GHL_API_BASE_URL = 'https://services.leadconnectorhq.com';
   const GHL_API_VERSION  = '2021-07-28';
+
+  // Read location ID from ?location= URL param
+  const GHL_LOCATION_ID = new URLSearchParams(window.location.search).get('location');
 
   // ─────────────────────────────────────────────
   // State
   // ─────────────────────────────────────────────
   let currentStep = 1;
+
+  // Guard: show error screen if no location param
+  if (!GHL_LOCATION_ID) {
+    document.getElementById('progress-wrap').style.display = 'none';
+    document.getElementById('form-step-1').style.display  = 'none';
+    document.getElementById('invalid-screen').style.display = 'block';
+  }
 
   // ─────────────────────────────────────────────
   // Validation helpers
