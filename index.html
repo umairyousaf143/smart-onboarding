@@ -501,7 +501,7 @@
   // ─────────────────────────────────────────────
   // GHL API CONFIG
   // ─────────────────────────────────────────────
-  const GHL_API_TOKEN    = 'pit-NEWAGENCYTOKENHERE';
+  const GHL_API_TOKEN    = 'PASTE_YOUR_NEW_AGENCY_TOKEN_HERE';
   const GHL_API_BASE_URL = 'https://services.leadconnectorhq.com';
   const GHL_API_VERSION  = '2021-07-28';
 
@@ -686,9 +686,7 @@
     document.getElementById('loading-screen').style.display = 'flex';
 
     try {
-      const fetchUrl = `${GHL_API_BASE_URL}/locations/${GHL_LOCATION_ID}`;
-      console.log('GHL PUT request URL:', fetchUrl);
-      const res = await fetch(fetchUrl, {
+      const res = await fetch(`${GHL_API_BASE_URL}/locations/${GHL_LOCATION_ID}`, {
         method: 'PUT',
         headers: {
           'Authorization' : `Bearer ${GHL_API_TOKEN}`,
