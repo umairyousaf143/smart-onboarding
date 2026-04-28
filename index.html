@@ -496,6 +496,26 @@
 
 </div>
 
+<!-- ── DEBUG BOX ── -->
+<div id="debug-box" style="
+  margin: 24px auto;
+  max-width: 560px;
+  background: #0f172a;
+  color: #94a3b8;
+  border-radius: 10px;
+  padding: 16px 20px;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.8;
+">
+  <div style="color:#38bdf8;font-weight:700;margin-bottom:8px;">&#x1f50d; Debug Info</div>
+  <div><span style="color:#64748b;">Current URL:&nbsp;&nbsp;&nbsp;</span><span id="dbg-url"></span></div>
+  <div><span style="color:#64748b;">Referrer:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span id="dbg-ref"></span></div>
+  <div><span style="color:#64748b;">Location ID:&nbsp;&nbsp;&nbsp;</span><span id="dbg-loc" style="color:#4ade80;"></span></div>
+  <div><span style="color:#64748b;">Source:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span id="dbg-src"></span></div>
+  <div><span style="color:#64748b;">postMessage:&nbsp;&nbsp;&nbsp;</span><span id="dbg-msg" style="color:#fbbf24;">(waiting…)</span></div>
+</div>
+
 <script>
   // ─────────────────────────────────────────────
   // GHL API CONFIG
@@ -504,21 +524,93 @@
   const GHL_API_BASE_URL = 'https://services.leadconnectorhq.com';
   const GHL_API_VERSION  = '2021-07-28';
 
-  // Read location ID from ?location= URL param
-  const params = new URLSearchParams(window.location.search);
-  const GHL_LOCATION_ID = params.get('location');
+  // ─────────────────────────────────────────────
+  // Location ID — 4-method fallback chain
+  // ─────────────────────────────────────────────
+
+  // Helper: extract ?location= from any URL string
+  function extractLocation(urlString) {
+    try {
+      return new URL(urlString).searchParams.get('location') || null;
+    } catch (_) { return null; }
+  }
+
+  // Method 1: own URL param
+  let GHL_LOCATION_ID = new URLSearchParams(window.location.search).get('location');
+  let locationSource  = 'url-param';
+
+  // Method 2: parent window URL
+  if (!GHL_LOCATION_ID) {
+    try {
+      const parentHref = window.parent.location.href;
+      GHL_LOCATION_ID = extractLocation(parentHref);
+      if (GHL_LOCATION_ID) locationSource = 'parent-url';
+    } catch (_) { /* cross-origin — expected inside GHL iframe */ }
+  }
+
+  // Method 3: document.referrer
+  if (!GHL_LOCATION_ID && document.referrer) {
+    GHL_LOCATION_ID = extractLocation(document.referrer);
+    if (GHL_LOCATION_ID) locationSource = 'referrer';
+  }
+
+  // Method 4: postMessage from parent (async — handled below)
+  if (!GHL_LOCATION_ID) locationSource = 'waiting-postMessage';
+
+  // ─────────────────────────────────────────────
+  // Debug box — populate immediately
+  // ─────────────────────────────────────────────
+  document.getElementById('dbg-url').textContent = window.location.href;
+  document.getElementById('dbg-ref').textContent = document.referrer || '(none)';
+  document.getElementById('dbg-loc').textContent = GHL_LOCATION_ID  || '(not found yet)';
+  document.getElementById('dbg-src').textContent = locationSource;
 
   // ─────────────────────────────────────────────
   // State
   // ─────────────────────────────────────────────
   let currentStep = 1;
 
-  // Guard: show error screen if no location param
-  if (!GHL_LOCATION_ID) {
-    document.getElementById('progress-wrap').style.display = 'none';
-    document.getElementById('form-step-1').style.display  = 'none';
-    document.getElementById('invalid-screen').style.display = 'block';
+  // Apply guard now (may be overridden by postMessage below)
+  function applyLocationGuard() {
+    if (!GHL_LOCATION_ID) {
+      document.getElementById('progress-wrap').style.display  = 'none';
+      document.getElementById('form-step-1').style.display    = 'none';
+      document.getElementById('invalid-screen').style.display = 'block';
+    } else {
+      document.getElementById('invalid-screen').style.display = 'none';
+      document.getElementById('progress-wrap').style.display  = 'block';
+      document.getElementById('form-step-1').style.display    = 'block';
+    }
   }
+  applyLocationGuard();
+
+  // ─────────────────────────────────────────────
+  // Method 4: postMessage listener
+  // ─────────────────────────────────────────────
+  window.addEventListener('message', function(event) {
+    const raw = JSON.stringify(event.data);
+    document.getElementById('dbg-msg').textContent = raw;
+    console.log('postMessage received:', event.origin, event.data);
+
+    // Accept location ID from message data
+    if (!GHL_LOCATION_ID) {
+      const d = event.data;
+      const candidate =
+        (typeof d === 'string' ? d : null) ||
+        (d && d.location)   ||
+        (d && d.locationId) ||
+        (d && d.location_id)||
+        null;
+
+      if (candidate && typeof candidate === 'string' && candidate.trim()) {
+        GHL_LOCATION_ID = candidate.trim();
+        locationSource  = 'postMessage';
+        document.getElementById('dbg-loc').textContent = GHL_LOCATION_ID;
+        document.getElementById('dbg-src').textContent = locationSource;
+        applyLocationGuard();
+      }
+    }
+  });
 
   // ─────────────────────────────────────────────
   // Validation helpers
