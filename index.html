@@ -19,102 +19,94 @@
     }
 
     .card {
-      background: #ffffff;
+      background: #fff;
       border-radius: 16px;
       box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
       width: 100%;
-      max-width: 560px;
+      max-width: 600px;
       overflow: hidden;
     }
 
-    /* ── Header ── */
     .card-header {
       background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-      padding: 32px 36px 28px;
+      padding: 28px 36px 24px;
       color: #fff;
     }
     .card-header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
     .card-header p  { margin-top: 6px; font-size: 14px; opacity: 0.85; }
 
-    /* ── Progress bar ── */
+    /* ── Progress ── */
     .progress-wrap {
-      padding: 0 36px;
+      padding: 0 28px;
       background: #fff;
       border-bottom: 1px solid #e2e8f0;
     }
     .steps-row {
       display: flex;
       align-items: flex-start;
-      padding: 20px 0 16px;
+      padding: 18px 0 14px;
     }
     .step-item {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       position: relative;
     }
     .step-item:not(:last-child)::after {
       content: '';
       position: absolute;
-      top: 14px;
-      left: calc(50% + 14px);
-      right: calc(-50% + 14px);
+      top: 13px;
+      left: calc(50% + 13px);
+      right: calc(-50% + 13px);
       height: 2px;
       background: #e2e8f0;
       transition: background 0.3s;
     }
     .step-item.done:not(:last-child)::after { background: #2563eb; }
-
     .step-circle {
-      width: 28px;
-      height: 28px;
+      width: 26px; height: 26px;
       border-radius: 50%;
       background: #e2e8f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      color: #94a3b8;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: #94a3b8;
       transition: background 0.3s, color 0.3s;
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
     }
-    .step-item.active .step-circle {
-      background: #2563eb;
-      color: #fff;
-      box-shadow: 0 0 0 4px #dbeafe;
-    }
-    .step-item.done .step-circle { background: #2563eb; color: #fff; }
-    .step-item.done .step-circle::after { content: '✓'; font-size: 13px; }
-    .step-item.done .step-circle span { display: none; }
-    .step-label { font-size: 11px; font-weight: 600; color: #94a3b8; text-align: center; white-space: nowrap; }
+    .step-item.active .step-circle { background: #2563eb; color: #fff; box-shadow: 0 0 0 4px #dbeafe; }
+    .step-item.done  .step-circle { background: #2563eb; color: #fff; }
+    .step-item.done  .step-circle::after { content: '✓'; font-size: 12px; }
+    .step-item.done  .step-circle span { display: none; }
+    .step-label { font-size: 10px; font-weight: 600; color: #94a3b8; text-align: center; white-space: nowrap; }
     .step-item.active .step-label,
     .step-item.done  .step-label { color: #2563eb; }
 
-    /* ── Form body ── */
-    .card-body { padding: 28px 36px 32px; }
-    .step-title { font-size: 16px; font-weight: 700; margin-bottom: 20px; color: #0f172a; }
-    .field-group { display: flex; flex-direction: column; gap: 16px; }
-    .field-row   { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    /* ── Body ── */
+    .card-body { padding: 24px 36px 28px; }
+    .step-title { font-size: 15px; font-weight: 700; margin-bottom: 18px; color: #0f172a; }
+    .section-label {
+      font-size: 11px; font-weight: 700; color: #94a3b8;
+      text-transform: uppercase; letter-spacing: 0.6px;
+      margin: 18px 0 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .field-group { display: flex; flex-direction: column; gap: 14px; }
+    .field-row   { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
 
     label {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #475569;
+      display: flex; flex-direction: column; gap: 5px;
+      font-size: 12px; font-weight: 600; color: #475569;
     }
-    label span.opt { font-weight: 400; color: #94a3b8; font-size: 12px; }
+    label span.opt { font-weight: 400; color: #94a3b8; font-size: 11px; }
 
     input, select {
-      padding: 10px 13px;
+      padding: 9px 12px;
       border: 1.5px solid #e2e8f0;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 13.5px;
       color: #1e293b;
       background: #fff;
       transition: border-color 0.2s, box-shadow 0.2s;
@@ -128,66 +120,48 @@
     }
     input::placeholder { color: #94a3b8; }
 
+    /* Checkboxes */
+    .checkbox-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .checkbox-item  {
+      display: flex; align-items: center; gap: 6px;
+      background: #f8fafc; border: 1.5px solid #e2e8f0;
+      border-radius: 6px; padding: 6px 10px;
+      font-size: 12.5px; font-weight: 500; color: #475569;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s;
+    }
+    .checkbox-item input[type=checkbox] { width: 14px; height: 14px; accent-color: #2563eb; cursor: pointer; }
+    .checkbox-item:has(input:checked) { border-color: #2563eb; background: #eff6ff; color: #2563eb; }
+
     .error-banner {
       display: none;
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-size: 13px;
-      color: #b91c1c;
-      line-height: 1.5;
+      background: #fef2f2; border: 1px solid #fecaca;
+      border-radius: 8px; padding: 10px 14px;
+      font-size: 13px; color: #b91c1c; line-height: 1.5;
     }
 
     /* ── Buttons ── */
-    .btn-row {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 28px;
-      gap: 12px;
-    }
+    .btn-row { display: flex; justify-content: space-between; margin-top: 24px; gap: 12px; }
     button {
-      padding: 11px 24px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
+      padding: 10px 22px; border-radius: 8px;
+      font-size: 13.5px; font-weight: 600; cursor: pointer; border: none;
       transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
       font-family: inherit;
     }
     button:active { transform: scale(0.98); }
-
-    .btn-primary {
-      background: #2563eb;
-      color: #fff;
-      flex: 1;
-      max-width: 200px;
-      margin-left: auto;
-    }
+    .btn-primary { background: #2563eb; color: #fff; flex: 1; max-width: 180px; margin-left: auto; }
     .btn-primary:hover { background: #1d4ed8; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
-    .btn-primary:disabled { background: #93c5fd; cursor: not-allowed; }
-
     .btn-secondary { background: #f1f5f9; color: #475569; }
     .btn-secondary:hover { background: #e2e8f0; }
 
     /* ── Loading ── */
     #loading-screen {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 56px 36px;
-      text-align: center;
-      gap: 20px;
+      display: none; flex-direction: column; align-items: center;
+      justify-content: center; padding: 56px 36px; text-align: center; gap: 20px;
     }
     .spinner {
-      width: 52px;
-      height: 52px;
-      border: 4px solid #dbeafe;
-      border-top-color: #2563eb;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+      width: 52px; height: 52px;
+      border: 4px solid #dbeafe; border-top-color: #2563eb;
+      border-radius: 50%; animation: spin 0.8s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
     #loading-screen h2 { font-size: 18px; font-weight: 700; color: #0f172a; }
@@ -195,67 +169,45 @@
 
     /* ── Success ── */
     #success-screen {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      padding: 44px 36px 40px;
-      text-align: center;
-      gap: 16px;
+      display: none; flex-direction: column; align-items: center;
+      padding: 44px 36px 40px; text-align: center; gap: 16px;
     }
     .checkmark-circle {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: #dcfce7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 34px;
+      width: 72px; height: 72px; border-radius: 50%;
+      background: #dcfce7; display: flex; align-items: center;
+      justify-content: center; font-size: 34px;
       animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     @keyframes pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
     #success-screen h2   { font-size: 20px; font-weight: 700; color: #166534; }
     #success-screen .sub { font-size: 14px; color: #64748b; }
-
     .summary-box {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 18px 20px;
-      text-align: left;
-      width: 100%;
-      font-size: 13.5px;
-      line-height: 1.8;
-      color: #334155;
+      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px;
+      padding: 16px 18px; text-align: left; width: 100%;
+      font-size: 13px; line-height: 1.8; color: #334155;
     }
     .summary-box .row { display: flex; gap: 8px; }
-    .summary-box .lbl { font-weight: 600; color: #475569; min-width: 130px; }
-
+    .summary-box .lbl { font-weight: 600; color: #475569; min-width: 160px; }
     .btn-restart {
-      background: #eff6ff;
-      color: #2563eb;
-      border: 1.5px solid #bfdbfe;
-      padding: 10px 22px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 4px;
+      background: #eff6ff; color: #2563eb; border: 1.5px solid #bfdbfe;
+      padding: 10px 22px; border-radius: 8px; font-size: 14px;
+      font-weight: 600; cursor: pointer; margin-top: 4px;
     }
     .btn-restart:hover { background: #dbeafe; }
 
-    @media (max-width: 480px) {
-      .card-header, .card-body, .progress-wrap { padding-left: 20px; padding-right: 20px; }
-      .field-row { grid-template-columns: 1fr; }
+    /* ── Invalid ── */
+    #invalid-screen { display: none; }
+    #invalid-screen > div { padding: 56px 36px; text-align: center; }
+
+    @media (max-width: 520px) {
+      .card-header, .card-body, .progress-wrap { padding-left: 18px; padding-right: 18px; }
+      .field-row, .field-row-3 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-
 <div class="card">
 
-  <!-- Header -->
   <div class="card-header">
     <h1>GHL Client Onboarding</h1>
     <p>Complete the form below to set up your business profile.</p>
@@ -264,37 +216,70 @@
   <!-- Progress -->
   <div class="progress-wrap" id="progress-wrap">
     <div class="steps-row">
-      <div class="step-item active" id="step-ind-1">
-        <div class="step-circle"><span>1</span></div>
-        <div class="step-label">Contact</div>
-      </div>
-      <div class="step-item" id="step-ind-2">
-        <div class="step-circle"><span>2</span></div>
-        <div class="step-label">Location</div>
-      </div>
-      <div class="step-item" id="step-ind-3">
-        <div class="step-circle"><span>3</span></div>
-        <div class="step-label">Business</div>
-      </div>
+      <div class="step-item active" id="step-ind-1"><div class="step-circle"><span>1</span></div><div class="step-label">Business</div></div>
+      <div class="step-item"        id="step-ind-2"><div class="step-circle"><span>2</span></div><div class="step-label">Location</div></div>
+      <div class="step-item"        id="step-ind-3"><div class="step-circle"><span>3</span></div><div class="step-label">Rep</div></div>
+      <div class="step-item"        id="step-ind-4"><div class="step-circle"><span>4</span></div><div class="step-label">Details</div></div>
     </div>
   </div>
 
-  <!-- ── STEP 1 ── -->
+  <!-- ── STEP 1 — Business Contact ── -->
   <div class="card-body" id="form-step-1">
-    <div class="step-title">Contact Information</div>
+    <div class="step-title">Business Contact</div>
     <div class="field-group">
-      <label>Business Name
-        <input type="text" id="businessName" placeholder="Acme Marketing LLC" />
-      </label>
-      <label>Owner Name
-        <input type="text" id="ownerName" placeholder="Jane Smith" />
+      <label>Legal Business Name
+        <input type="text" id="businessName" placeholder="Gipson Group LLC" />
       </label>
       <div class="field-row">
-        <label>Email Address
-          <input type="email" id="email" placeholder="jane@acme.com" />
+        <label>Business Email
+          <input type="email" id="businessEmail" placeholder="admin@business.com" />
         </label>
-        <label>Phone Number
-          <input type="tel" id="phone" placeholder="+1 (555) 000-0000" />
+        <label>Business Phone
+          <input type="tel" id="businessPhone" placeholder="+1 (555) 000-0000" />
+        </label>
+      </div>
+      <label>Business Website
+        <input type="url" id="website" placeholder="https://yourbusiness.com" />
+      </label>
+      <div class="field-row">
+        <label>Business Niche
+          <select id="niche">
+            <option value="">Choose one…</option>
+            <option value="marketing">Marketing</option>
+            <option value="real_estate">Real Estate</option>
+            <option value="dental">Dental</option>
+            <option value="chiropractic">Chiropractic</option>
+            <option value="medspa">Med Spa</option>
+            <option value="hvac">HVAC</option>
+            <option value="plumbing">Plumbing</option>
+            <option value="roofing">Roofing</option>
+            <option value="electrical">Electrical</option>
+            <option value="landscaping">Landscaping</option>
+            <option value="fitness">Fitness / Gym</option>
+            <option value="insurance">Insurance</option>
+            <option value="mortgage">Mortgage</option>
+            <option value="law">Law Firm</option>
+            <option value="ecommerce">E-Commerce</option>
+            <option value="restaurant">Restaurant</option>
+            <option value="automotive">Automotive</option>
+            <option value="coaching">Coaching</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+        <label>Business Currency
+          <select id="currency">
+            <option value="">Choose one…</option>
+            <option value="USD">USD — US Dollar</option>
+            <option value="CAD">CAD — Canadian Dollar</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="AUD">AUD — Australian Dollar</option>
+            <option value="NZD">NZD — New Zealand Dollar</option>
+            <option value="MXN">MXN — Mexican Peso</option>
+            <option value="INR">INR — Indian Rupee</option>
+            <option value="SGD">SGD — Singapore Dollar</option>
+            <option value="AED">AED — UAE Dirham</option>
+          </select>
         </label>
       </div>
       <div class="error-banner" id="err-1"></div>
@@ -304,82 +289,86 @@
     </div>
   </div>
 
-  <!-- ── STEP 2 ── -->
+  <!-- ── STEP 2 — Location ── -->
   <div class="card-body" id="form-step-2" style="display:none;">
-    <div class="step-title">Location &amp; Website</div>
+    <div class="step-title">Location</div>
     <div class="field-group">
-      <label>Website URL
-        <input type="url" id="website" placeholder="https://acme.com" />
-      </label>
       <label>Street Address
         <input type="text" id="address" placeholder="123 Main Street" />
       </label>
       <div class="field-row">
         <label>City
-          <input type="text" id="city" placeholder="Los Angeles" />
+          <input type="text" id="city" placeholder="Georgetown" />
         </label>
-        <label>State
-          <input type="text" id="state" placeholder="CA" maxlength="50" />
+        <label>State / Province
+          <input type="text" id="state" placeholder="Texas" />
         </label>
       </div>
       <div class="field-row">
-        <label>ZIP Code
-          <input type="text" id="zip" placeholder="90001" />
+        <label>ZIP / Postal Code
+          <input type="text" id="zip" placeholder="78628" />
         </label>
-        <label>Timezone
-          <select id="timezone">
-            <option value="">Select timezone…</option>
-            <optgroup label="United States">
-              <option value="America/New_York">Eastern Time (ET)</option>
-              <option value="America/Chicago">Central Time (CT)</option>
-              <option value="America/Denver">Mountain Time (MT)</option>
-              <option value="America/Los_Angeles">Pacific Time (PT)</option>
-              <option value="America/Anchorage">Alaska Time (AKT)</option>
-              <option value="Pacific/Honolulu">Hawaii Time (HT)</option>
-            </optgroup>
-            <optgroup label="Canada">
-              <option value="America/Toronto">Toronto (ET)</option>
-              <option value="America/Vancouver">Vancouver (PT)</option>
-              <option value="America/Edmonton">Edmonton (MT)</option>
-            </optgroup>
-            <optgroup label="Europe">
-              <option value="Europe/London">London (GMT/BST)</option>
-              <option value="Europe/Paris">Paris (CET)</option>
-              <option value="Europe/Berlin">Berlin (CET)</option>
-              <option value="Europe/Madrid">Madrid (CET)</option>
-              <option value="Europe/Rome">Rome (CET)</option>
-              <option value="Europe/Amsterdam">Amsterdam (CET)</option>
-              <option value="Europe/Stockholm">Stockholm (CET)</option>
-              <option value="Europe/Warsaw">Warsaw (CET)</option>
-              <option value="Europe/Athens">Athens (EET)</option>
-              <option value="Europe/Helsinki">Helsinki (EET)</option>
-            </optgroup>
-            <optgroup label="Asia / Pacific">
-              <option value="Asia/Dubai">Dubai (GST)</option>
-              <option value="Asia/Kolkata">India (IST)</option>
-              <option value="Asia/Dhaka">Bangladesh (BST)</option>
-              <option value="Asia/Bangkok">Bangkok (ICT)</option>
-              <option value="Asia/Singapore">Singapore (SGT)</option>
-              <option value="Asia/Shanghai">China (CST)</option>
-              <option value="Asia/Tokyo">Japan (JST)</option>
-              <option value="Asia/Seoul">Seoul (KST)</option>
-              <option value="Australia/Sydney">Sydney (AEST)</option>
-              <option value="Pacific/Auckland">Auckland (NZST)</option>
-            </optgroup>
-            <optgroup label="Latin America">
-              <option value="America/Sao_Paulo">São Paulo (BRT)</option>
-              <option value="America/Argentina/Buenos_Aires">Buenos Aires (ART)</option>
-              <option value="America/Bogota">Bogotá (COT)</option>
-              <option value="America/Mexico_City">Mexico City (CST)</option>
-            </optgroup>
-            <optgroup label="Africa">
-              <option value="Africa/Cairo">Cairo (EET)</option>
-              <option value="Africa/Johannesburg">Johannesburg (SAST)</option>
-              <option value="Africa/Lagos">Lagos (WAT)</option>
-            </optgroup>
+        <label>Country
+          <select id="country">
+            <option value="">Select country…</option>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="GB">United Kingdom</option>
+            <option value="AU">Australia</option>
+            <option value="NZ">New Zealand</option>
+            <option value="IN">India</option>
+            <option value="PK">Pakistan</option>
+            <option value="AE">UAE</option>
+            <option value="DE">Germany</option>
+            <option value="FR">France</option>
+            <option value="ES">Spain</option>
+            <option value="MX">Mexico</option>
+            <option value="BR">Brazil</option>
+            <option value="SG">Singapore</option>
+            <option value="ZA">South Africa</option>
           </select>
         </label>
       </div>
+      <label>Timezone
+        <select id="timezone">
+          <option value="">Select timezone…</option>
+          <optgroup label="United States">
+            <option value="America/New_York">Eastern Time (ET)</option>
+            <option value="America/Chicago">Central Time (CT)</option>
+            <option value="America/Denver">Mountain Time (MT)</option>
+            <option value="America/Los_Angeles">Pacific Time (PT)</option>
+            <option value="America/Anchorage">Alaska (AKT)</option>
+            <option value="Pacific/Honolulu">Hawaii (HT)</option>
+          </optgroup>
+          <optgroup label="Canada">
+            <option value="America/Toronto">Toronto (ET)</option>
+            <option value="America/Vancouver">Vancouver (PT)</option>
+          </optgroup>
+          <optgroup label="Europe">
+            <option value="Europe/London">London (GMT/BST)</option>
+            <option value="Europe/Paris">Paris (CET)</option>
+            <option value="Europe/Berlin">Berlin (CET)</option>
+            <option value="Europe/Madrid">Madrid (CET)</option>
+          </optgroup>
+          <optgroup label="Asia / Pacific">
+            <option value="Asia/Dubai">Dubai (GST)</option>
+            <option value="Asia/Kolkata">India (IST)</option>
+            <option value="Asia/Karachi">Pakistan (PKT)</option>
+            <option value="Asia/Singapore">Singapore (SGT)</option>
+            <option value="Asia/Tokyo">Japan (JST)</option>
+            <option value="Australia/Sydney">Sydney (AEST)</option>
+            <option value="Pacific/Auckland">Auckland (NZST)</option>
+          </optgroup>
+          <optgroup label="Latin America">
+            <option value="America/Sao_Paulo">São Paulo (BRT)</option>
+            <option value="America/Mexico_City">Mexico City (CST)</option>
+          </optgroup>
+          <optgroup label="Africa">
+            <option value="Africa/Johannesburg">Johannesburg (SAST)</option>
+            <option value="Africa/Cairo">Cairo (EET)</option>
+          </optgroup>
+        </select>
+      </label>
       <div class="error-banner" id="err-2"></div>
     </div>
     <div class="btn-row">
@@ -388,89 +377,121 @@
     </div>
   </div>
 
-  <!-- ── STEP 3 ── -->
+  <!-- ── STEP 3 — Authorized Representative ── -->
   <div class="card-body" id="form-step-3" style="display:none;">
-    <div class="step-title">Business Details</div>
+    <div class="step-title">Authorized Representative</div>
     <div class="field-group">
-      <label>Industry / Niche
-        <select id="industry">
-          <option value="">Select your industry…</option>
-          <optgroup label="Home Services">
-            <option value="HVAC">HVAC</option>
-            <option value="Plumbing">Plumbing</option>
-            <option value="Electrical">Electrical</option>
-            <option value="Roofing">Roofing</option>
-            <option value="Landscaping">Landscaping</option>
-            <option value="Cleaning Services">Cleaning Services</option>
-            <option value="Pest Control">Pest Control</option>
-            <option value="Home Remodeling">Home Remodeling</option>
-            <option value="Pool Services">Pool Services</option>
-          </optgroup>
-          <optgroup label="Health & Wellness">
-            <option value="Chiropractic">Chiropractic</option>
-            <option value="Dental">Dental</option>
-            <option value="Medical Spa / MedSpa">Medical Spa / MedSpa</option>
-            <option value="Gym / Fitness">Gym / Fitness</option>
-            <option value="Physical Therapy">Physical Therapy</option>
-            <option value="Mental Health">Mental Health</option>
-            <option value="Optometry">Optometry</option>
-            <option value="Veterinary">Veterinary</option>
-          </optgroup>
-          <optgroup label="Professional Services">
-            <option value="Law Firm">Law Firm</option>
-            <option value="Accounting / CPA">Accounting / CPA</option>
-            <option value="Financial Advisor">Financial Advisor</option>
-            <option value="Insurance Agency">Insurance Agency</option>
-            <option value="Real Estate">Real Estate</option>
-            <option value="Mortgage">Mortgage</option>
-            <option value="Staffing / Recruiting">Staffing / Recruiting</option>
-          </optgroup>
-          <optgroup label="Automotive">
-            <option value="Auto Repair">Auto Repair</option>
-            <option value="Car Dealership">Car Dealership</option>
-            <option value="Auto Detailing">Auto Detailing</option>
-          </optgroup>
-          <optgroup label="Marketing & Media">
-            <option value="Digital Marketing Agency">Digital Marketing Agency</option>
-            <option value="Photography / Videography">Photography / Videography</option>
-            <option value="Web Design">Web Design</option>
-            <option value="Social Media Management">Social Media Management</option>
-            <option value="SEO Agency">SEO Agency</option>
-          </optgroup>
-          <optgroup label="Education & Coaching">
-            <option value="Business Coaching">Business Coaching</option>
-            <option value="Life Coaching">Life Coaching</option>
-            <option value="Online Course Creator">Online Course Creator</option>
-            <option value="Tutoring">Tutoring</option>
-          </optgroup>
-          <optgroup label="Food & Hospitality">
-            <option value="Restaurant">Restaurant</option>
-            <option value="Catering">Catering</option>
-            <option value="Food Truck">Food Truck</option>
-            <option value="Hotel / Lodging">Hotel / Lodging</option>
-          </optgroup>
-          <optgroup label="Retail & E-Commerce">
-            <option value="E-Commerce">E-Commerce</option>
-            <option value="Retail Store">Retail Store</option>
-            <option value="Salon / Barbershop">Salon / Barbershop</option>
-            <option value="Spa">Spa</option>
-          </optgroup>
-          <option value="Other">Other</option>
+      <div class="field-row">
+        <label>First Name
+          <input type="text" id="repFirstName" placeholder="Jane" />
+        </label>
+        <label>Last Name
+          <input type="text" id="repLastName" placeholder="Smith" />
+        </label>
+      </div>
+      <label>Representative Email
+        <input type="email" id="repEmail" placeholder="jane@business.com" />
+      </label>
+      <label>Job Position
+        <select id="jobPosition">
+          <option value="">Select position…</option>
+          <option value="Director">Director</option>
+          <option value="Manager">Manager</option>
+          <option value="VP">VP</option>
+          <option value="CEO">CEO</option>
+          <option value="CFO">CFO</option>
+          <option value="General Counsel">General Counsel</option>
         </select>
       </label>
-      <label>Logo URL <span class="opt">(optional)</span>
-        <input type="url" id="logoUrl" placeholder="https://acme.com/logo.png" />
+      <label>Phone Number (with country code)
+        <input type="tel" id="repPhone" placeholder="+1 (555) 000-0000" />
       </label>
       <div class="error-banner" id="err-3"></div>
     </div>
     <div class="btn-row">
       <button class="btn-secondary" onclick="goToStep(2)">&larr; Back</button>
+      <button class="btn-primary" onclick="goToStep(4)">Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 4 — Business Details ── -->
+  <div class="card-body" id="form-step-4" style="display:none;">
+    <div class="step-title">Business Details</div>
+    <div class="field-group">
+      <div class="field-row">
+        <label>Business Type
+          <select id="businessType">
+            <option value="">Pick Business Type…</option>
+            <option value="Sole Proprietorship">Sole Proprietorship</option>
+            <option value="Partnership">Partnership</option>
+            <option value="LLC">LLC</option>
+            <option value="Corporation">Corporation</option>
+            <option value="Non-profit">Non-profit</option>
+            <option value="Co-operative">Co-operative</option>
+          </select>
+        </label>
+        <label>Business Industry
+          <select id="businessIndustry">
+            <option value="">Pick Business Industry…</option>
+            <option value="Agriculture">Agriculture</option>
+            <option value="Construction">Construction</option>
+            <option value="Education">Education</option>
+            <option value="Finance">Finance</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Hospitality">Hospitality</option>
+            <option value="Insurance">Insurance</option>
+            <option value="Legal">Legal</option>
+            <option value="Manufacturing">Manufacturing</option>
+            <option value="Media">Media</option>
+            <option value="Real Estate">Real Estate</option>
+            <option value="Retail">Retail</option>
+            <option value="Technology">Technology</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+      </div>
+      <div class="field-row">
+        <label>Registration ID Type <span class="opt">(optional)</span>
+          <select id="regIdType">
+            <option value="">Pick ID Type…</option>
+            <option value="EIN">EIN</option>
+            <option value="DUNS">DUNS</option>
+            <option value="CCN">CCN</option>
+            <option value="CN">CN</option>
+            <option value="ACN">ACN</option>
+            <option value="CIN">CIN</option>
+            <option value="VAT">VAT</option>
+            <option value="VATRN">VATRN</option>
+            <option value="RN">RN</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label>Registration Number <span class="opt">(optional)</span>
+          <input type="text" id="regNumber" placeholder="12-3456789" />
+        </label>
+      </div>
+      <label>Business Regions of Operation</label>
+      <div class="checkbox-group">
+        <label class="checkbox-item"><input type="checkbox" id="reg-africa" value="Africa" /> Africa</label>
+        <label class="checkbox-item"><input type="checkbox" id="reg-asia" value="Asia" /> Asia</label>
+        <label class="checkbox-item"><input type="checkbox" id="reg-europe" value="Europe" /> Europe</label>
+        <label class="checkbox-item"><input type="checkbox" id="reg-latin" value="Latin America" /> Latin America</label>
+        <label class="checkbox-item"><input type="checkbox" id="reg-usa" value="USA and Canada" /> USA and Canada</label>
+      </div>
+      <label>Logo URL <span class="opt">(optional)</span>
+        <input type="url" id="logoUrl" placeholder="https://yourbusiness.com/logo.png" />
+      </label>
+      <div class="error-banner" id="err-4"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goToStep(3)">&larr; Back</button>
       <button class="btn-primary" onclick="handleSubmit()">Submit &rarr;</button>
     </div>
   </div>
 
   <!-- ── INVALID LINK ── -->
-  <div id="invalid-screen" style="display:none;">
+  <div id="invalid-screen">
     <div style="padding:56px 36px;text-align:center;">
       <div style="font-size:48px;margin-bottom:16px;">⚠️</div>
       <h2 style="font-size:18px;font-weight:700;color:#b91c1c;margin-bottom:10px;">Invalid Onboarding Link</h2>
@@ -496,7 +517,6 @@
 
 </div>
 
-
 <script>
   // ─────────────────────────────────────────────
   // GHL API CONFIG
@@ -505,133 +525,95 @@
   const GHL_API_BASE_URL = 'https://services.leadconnectorhq.com';
   const GHL_API_VERSION  = '2021-07-28';
 
-  // ─────────────────────────────────────────────
-  // Location ID — 4-method fallback chain
-  // ─────────────────────────────────────────────
+  // Location ID from URL param with fallbacks
+  const params = new URLSearchParams(window.location.search);
+  let GHL_LOCATION_ID = params.get('location');
 
-  // Helper: extract ?location= from any URL string
-  function extractLocation(urlString) {
-    try {
-      return new URL(urlString).searchParams.get('location') || null;
-    } catch (_) { return null; }
-  }
-
-  // Method 1: own URL param
-  let GHL_LOCATION_ID = new URLSearchParams(window.location.search).get('location');
-  let locationSource  = 'url-param';
-
-  // Method 2: parent window URL
+  // Fallback: parent URL
   if (!GHL_LOCATION_ID) {
     try {
-      const parentHref = window.parent.location.href;
-      GHL_LOCATION_ID = extractLocation(parentHref);
-      if (GHL_LOCATION_ID) locationSource = 'parent-url';
-    } catch (_) { /* cross-origin — expected inside GHL iframe */ }
+      GHL_LOCATION_ID = new URL(window.parent.location.href).searchParams.get('location');
+    } catch (_) {}
   }
 
-  // Method 3: document.referrer
+  // Fallback: referrer
   if (!GHL_LOCATION_ID && document.referrer) {
-    GHL_LOCATION_ID = extractLocation(document.referrer);
-    if (GHL_LOCATION_ID) locationSource = 'referrer';
+    try {
+      GHL_LOCATION_ID = new URL(document.referrer).searchParams.get('location');
+    } catch (_) {}
   }
-
-  // Method 4: postMessage from parent (async — handled below)
-  if (!GHL_LOCATION_ID) locationSource = 'waiting-postMessage';
 
   // ─────────────────────────────────────────────
   // State
   // ─────────────────────────────────────────────
+  const TOTAL_STEPS = 4;
   let currentStep = 1;
 
-  // Apply guard now (may be overridden by postMessage below)
   function applyLocationGuard() {
     if (!GHL_LOCATION_ID) {
       document.getElementById('progress-wrap').style.display  = 'none';
       document.getElementById('form-step-1').style.display    = 'none';
       document.getElementById('invalid-screen').style.display = 'block';
-    } else {
-      document.getElementById('invalid-screen').style.display = 'none';
-      document.getElementById('progress-wrap').style.display  = 'block';
-      document.getElementById('form-step-1').style.display    = 'block';
     }
   }
   applyLocationGuard();
 
-  // ─────────────────────────────────────────────
-  // Method 4: postMessage listener
-  // ─────────────────────────────────────────────
+  // Fallback: postMessage
   window.addEventListener('message', function(event) {
     if (!GHL_LOCATION_ID) {
       const d = event.data;
       const candidate =
         (typeof d === 'string' ? d : null) ||
-        (d && d.location)   ||
-        (d && d.locationId) ||
-        (d && d.location_id)||
-        null;
-
+        (d && (d.location || d.locationId || d.location_id)) || null;
       if (candidate && typeof candidate === 'string' && candidate.trim()) {
         GHL_LOCATION_ID = candidate.trim();
-        applyLocationGuard();
+        document.getElementById('invalid-screen').style.display = 'none';
+        document.getElementById('progress-wrap').style.display  = 'block';
+        document.getElementById('form-step-1').style.display    = 'block';
       }
     }
   });
 
   // ─────────────────────────────────────────────
-  // Validation helpers
+  // Validation
   // ─────────────────────────────────────────────
   function showError(id, msg) {
     const el = document.getElementById(id);
-    el.textContent = msg;
-    el.style.display = 'block';
+    el.textContent = msg; el.style.display = 'block';
   }
   function clearError(id) {
     const el = document.getElementById(id);
-    el.textContent = '';
-    el.style.display = 'none';
+    el.textContent = ''; el.style.display = 'none';
   }
 
   function validateStep(step) {
     clearError('err-' + step);
     if (step === 1) {
-      const biz = document.getElementById('businessName').value.trim();
-      const own = document.getElementById('ownerName').value.trim();
-      const em  = document.getElementById('email').value.trim();
-      const ph  = document.getElementById('phone').value.trim();
-      if (!biz || !own || !em || !ph) {
-        showError('err-1', 'Please fill in all required fields.');
-        return false;
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
-        showError('err-1', 'Please enter a valid email address.');
-        return false;
-      }
+      const name  = document.getElementById('businessName').value.trim();
+      const email = document.getElementById('businessEmail').value.trim();
+      const phone = document.getElementById('businessPhone').value.trim();
+      if (!name || !email || !phone) { showError('err-1', 'Business Name, Email, and Phone are required.'); return false; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('err-1', 'Please enter a valid email address.'); return false; }
     }
     if (step === 2) {
-      const city = document.getElementById('city').value.trim();
-      const tz   = document.getElementById('timezone').value;
-      if (!city || !tz) {
-        showError('err-2', 'City and Timezone are required.');
-        return false;
-      }
+      if (!document.getElementById('city').value.trim()) { showError('err-2', 'City is required.'); return false; }
     }
     if (step === 3) {
-      if (!document.getElementById('industry').value) {
-        showError('err-3', 'Please select an industry.');
-        return false;
-      }
+      const fn = document.getElementById('repFirstName').value.trim();
+      const ln = document.getElementById('repLastName').value.trim();
+      if (!fn || !ln) { showError('err-3', 'First Name and Last Name are required.'); return false; }
     }
     return true;
   }
 
   // ─────────────────────────────────────────────
-  // Step navigation
+  // Navigation
   // ─────────────────────────────────────────────
   function goToStep(n) {
     if (n > currentStep && !validateStep(currentStep)) return;
     document.getElementById('form-step-' + currentStep).style.display = 'none';
     document.getElementById('form-step-' + n).style.display = 'block';
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= TOTAL_STEPS; i++) {
       const ind = document.getElementById('step-ind-' + i);
       ind.classList.remove('active', 'done');
       if (i < n) ind.classList.add('done');
@@ -641,43 +623,83 @@
   }
 
   // ─────────────────────────────────────────────
-  // Submit — PUT to GHL Locations API
+  // Collect regions
+  // ─────────────────────────────────────────────
+  function getRegions() {
+    return ['reg-africa','reg-asia','reg-europe','reg-latin','reg-usa']
+      .filter(id => document.getElementById(id).checked)
+      .map(id => document.getElementById(id).value);
+  }
+
+  // ─────────────────────────────────────────────
+  // Submit
   // ─────────────────────────────────────────────
   async function handleSubmit() {
-    if (!validateStep(3)) return;
+    if (!validateStep(4)) return;
 
-    const data = {
-      businessName : document.getElementById('businessName').value.trim(),
-      ownerName    : document.getElementById('ownerName').value.trim(),
-      email        : document.getElementById('email').value.trim(),
-      phone        : document.getElementById('phone').value.trim(),
-      website      : document.getElementById('website').value.trim(),
-      address      : document.getElementById('address').value.trim(),
-      city         : document.getElementById('city').value.trim(),
-      state        : document.getElementById('state').value.trim(),
-      zip          : document.getElementById('zip').value.trim(),
-      timezone     : document.getElementById('timezone').value,
-      industry     : document.getElementById('industry').value,
-      logoUrl      : document.getElementById('logoUrl').value.trim(),
+    const d = {
+      businessName  : document.getElementById('businessName').value.trim(),
+      businessEmail : document.getElementById('businessEmail').value.trim(),
+      businessPhone : document.getElementById('businessPhone').value.trim(),
+      website       : document.getElementById('website').value.trim(),
+      niche         : document.getElementById('niche').value,
+      currency      : document.getElementById('currency').value,
+      address       : document.getElementById('address').value.trim(),
+      city          : document.getElementById('city').value.trim(),
+      state         : document.getElementById('state').value.trim(),
+      zip           : document.getElementById('zip').value.trim(),
+      country       : document.getElementById('country').value,
+      timezone      : document.getElementById('timezone').value,
+      repFirstName  : document.getElementById('repFirstName').value.trim(),
+      repLastName   : document.getElementById('repLastName').value.trim(),
+      repEmail      : document.getElementById('repEmail').value.trim(),
+      jobPosition   : document.getElementById('jobPosition').value,
+      repPhone      : document.getElementById('repPhone').value.trim(),
+      businessType  : document.getElementById('businessType').value,
+      businessIndustry: document.getElementById('businessIndustry').value,
+      regIdType     : document.getElementById('regIdType').value,
+      regNumber     : document.getElementById('regNumber').value.trim(),
+      regions       : getRegions(),
+      logoUrl       : document.getElementById('logoUrl').value.trim(),
     };
 
-    // Build GHL payload — only include non-empty fields
+    // ── GHL Location payload ──
+    // Only confirmed-valid top-level fields
     const payload = {};
-    if (data.businessName) payload.name       = data.businessName;
-    if (data.email)        payload.email      = data.email;
-    if (data.phone)        payload.phone      = data.phone;
-    if (data.website)      payload.website    = data.website;
-    if (data.address)      payload.address    = data.address;
-    if (data.city)         payload.city       = data.city;
-    if (data.state)        payload.state      = data.state;
-    if (data.zip)          payload.postalCode = data.zip;
-    if (data.timezone)     payload.timezone   = data.timezone;
-    if (data.logoUrl)      payload.logoUrl    = data.logoUrl;
+    if (d.businessName)  payload.name       = d.businessName;
+    if (d.businessEmail) payload.email      = d.businessEmail;
+    if (d.businessPhone) payload.phone      = d.businessPhone;
+    if (d.website)       payload.website    = d.website;
+    if (d.address)       payload.address    = d.address;
+    if (d.city)          payload.city       = d.city;
+    if (d.state)         payload.state      = d.state;
+    if (d.zip)           payload.postalCode = d.zip;
+    if (d.country)       payload.country    = d.country;
+    if (d.timezone)      payload.timezone   = d.timezone;
+    if (d.logoUrl)       payload.logoUrl    = d.logoUrl;
 
-    console.log('Submitting payload:', JSON.stringify(payload, null, 2));
+    // Authorized Representative (nested)
+    const rep = {};
+    if (d.repFirstName)  rep.firstName   = d.repFirstName;
+    if (d.repLastName)   rep.lastName    = d.repLastName;
+    if (d.repEmail)      rep.email       = d.repEmail;
+    if (d.jobPosition)   rep.jobPosition = d.jobPosition;
+    if (d.repPhone)      rep.phone       = d.repPhone;
+    if (Object.keys(rep).length) payload.authRepresentative = rep;
+
+    // Business information (nested)
+    const biz = {};
+    if (d.niche)            biz.niche              = d.niche;
+    if (d.currency)         biz.currency           = d.currency;
+    if (d.businessType)     biz.type               = d.businessType;
+    if (d.businessIndustry) biz.industry           = d.businessIndustry;
+    if (d.regIdType)        biz.registrationIdType = d.regIdType;
+    if (d.regNumber)        biz.registrationNumber = d.regNumber;
+    if (d.regions.length)   biz.regionsOfOperation = d.regions;
+    if (Object.keys(biz).length) payload.business = biz;
 
     // Show loading
-    document.getElementById('form-step-3').style.display = 'none';
+    document.getElementById('form-step-4').style.display = 'none';
     document.getElementById('progress-wrap').style.display = 'none';
     document.getElementById('loading-screen').style.display = 'flex';
 
@@ -694,44 +716,46 @@
 
       if (!res.ok) {
         const errBody = await res.json().catch(() => ({}));
-        throw new Error(errBody?.message || `GHL API returned ${res.status}`);
+        throw new Error(errBody?.message || `GHL API error ${res.status}`);
       }
 
-      showSuccess(data);
+      showSuccess(d);
     } catch (err) {
       document.getElementById('progress-wrap').style.display = 'block';
       document.getElementById('loading-screen').style.display = 'none';
-      document.getElementById('form-step-3').style.display = 'block';
-      showError('err-3', 'Error: ' + (err.message || 'Something went wrong. Please try again.'));
+      document.getElementById('form-step-4').style.display = 'block';
+      showError('err-4', 'Error: ' + (err.message || 'Something went wrong. Please try again.'));
     }
   }
 
   // ─────────────────────────────────────────────
-  // Success screen
+  // Success
   // ─────────────────────────────────────────────
-  function showSuccess(data) {
+  function showSuccess(d) {
     document.getElementById('loading-screen').style.display = 'none';
-
     const rows = [
-      ['Business Name', data.businessName],
-      ['Owner Name',    data.ownerName],
-      ['Email',         data.email],
-      ['Phone',         data.phone],
-      data.website  ? ['Website',    data.website]  : null,
-      data.address  ? ['Address',    data.address]  : null,
-      data.city     ? ['City',       data.city]     : null,
-      data.state    ? ['State',      data.state]    : null,
-      data.zip      ? ['ZIP',        data.zip]      : null,
-      ['Timezone',      data.timezone],
-      ['Industry',      data.industry],
-      data.logoUrl  ? ['Logo URL',   data.logoUrl]  : null,
+      ['Business Name',   d.businessName],
+      ['Email',           d.businessEmail],
+      ['Phone',           d.businessPhone],
+      d.website         ? ['Website',        d.website]          : null,
+      d.address         ? ['Address',        d.address]          : null,
+      d.city            ? ['City',           d.city]             : null,
+      d.state           ? ['State',          d.state]            : null,
+      d.zip             ? ['ZIP',            d.zip]              : null,
+      d.country         ? ['Country',        d.country]          : null,
+      d.timezone        ? ['Timezone',       d.timezone]         : null,
+      d.repFirstName    ? ['Rep Name',       `${d.repFirstName} ${d.repLastName}`] : null,
+      d.repEmail        ? ['Rep Email',      d.repEmail]         : null,
+      d.jobPosition     ? ['Job Position',   d.jobPosition]      : null,
+      d.businessType    ? ['Business Type',  d.businessType]     : null,
+      d.businessIndustry? ['Industry',       d.businessIndustry] : null,
+      d.regions.length  ? ['Regions',        d.regions.join(', ')] : null,
+      d.logoUrl         ? ['Logo URL',       d.logoUrl]          : null,
     ].filter(Boolean);
 
-    const box = document.getElementById('summary-box');
-    box.innerHTML = rows.map(([lbl, val]) =>
+    document.getElementById('summary-box').innerHTML = rows.map(([lbl, val]) =>
       `<div class="row"><span class="lbl">${lbl}:</span><span>${val}</span></div>`
     ).join('');
-
     document.getElementById('success-screen').style.display = 'flex';
   }
 
@@ -739,19 +763,24 @@
   // Restart
   // ─────────────────────────────────────────────
   function restartForm() {
-    ['businessName','ownerName','email','phone','website',
-     'address','city','state','zip','logoUrl'].forEach(id => {
+    ['businessName','businessEmail','businessPhone','website',
+     'address','city','state','zip','repFirstName','repLastName',
+     'repEmail','repPhone','regNumber','logoUrl'].forEach(id => {
       document.getElementById(id).value = '';
     });
-    document.getElementById('timezone').value = '';
-    document.getElementById('industry').value = '';
+    ['niche','currency','country','timezone','jobPosition',
+     'businessType','businessIndustry','regIdType'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    ['reg-africa','reg-asia','reg-europe','reg-latin','reg-usa'].forEach(id => {
+      document.getElementById(id).checked = false;
+    });
 
     document.getElementById('success-screen').style.display = 'none';
     document.getElementById('progress-wrap').style.display = 'block';
-
     currentStep = 1;
     document.getElementById('form-step-1').style.display = 'block';
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= TOTAL_STEPS; i++) {
       const ind = document.getElementById('step-ind-' + i);
       ind.classList.remove('active', 'done');
       if (i === 1) ind.classList.add('active');
