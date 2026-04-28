@@ -674,6 +674,8 @@
     if (data.timezone)     payload.timezone   = data.timezone;
     if (data.logoUrl)      payload.logoUrl    = data.logoUrl;
 
+    console.log('Submitting payload:', JSON.stringify(payload, null, 2));
+
     // Show loading
     document.getElementById('form-step-3').style.display = 'none';
     document.getElementById('progress-wrap').style.display = 'none';
