@@ -539,14 +539,6 @@
   if (!GHL_LOCATION_ID) locationSource = 'waiting-postMessage';
 
   // ─────────────────────────────────────────────
-  // Debug box — populate immediately
-  // ─────────────────────────────────────────────
-  document.getElementById('dbg-url').textContent = window.location.href;
-  document.getElementById('dbg-ref').textContent = document.referrer || '(none)';
-  document.getElementById('dbg-loc').textContent = GHL_LOCATION_ID  || '(not found yet)';
-  document.getElementById('dbg-src').textContent = locationSource;
-
-  // ─────────────────────────────────────────────
   // State
   // ─────────────────────────────────────────────
   let currentStep = 1;
@@ -569,11 +561,6 @@
   // Method 4: postMessage listener
   // ─────────────────────────────────────────────
   window.addEventListener('message', function(event) {
-    const raw = JSON.stringify(event.data);
-    document.getElementById('dbg-msg').textContent = raw;
-    console.log('postMessage received:', event.origin, event.data);
-
-    // Accept location ID from message data
     if (!GHL_LOCATION_ID) {
       const d = event.data;
       const candidate =
@@ -585,9 +572,6 @@
 
       if (candidate && typeof candidate === 'string' && candidate.trim()) {
         GHL_LOCATION_ID = candidate.trim();
-        locationSource  = 'postMessage';
-        document.getElementById('dbg-loc').textContent = GHL_LOCATION_ID;
-        document.getElementById('dbg-src').textContent = locationSource;
         applyLocationGuard();
       }
     }
