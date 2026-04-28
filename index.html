@@ -698,18 +698,22 @@
 
     // Build GHL payload — only include non-empty fields
     const payload = {};
-    if (data.businessName) payload.name         = data.businessName;
-    if (data.ownerName)    payload.ownerName     = data.ownerName;
-    if (data.email)        payload.email         = data.email;
-    if (data.phone)        payload.phone         = data.phone;
-    if (data.website)      payload.website       = data.website;
-    if (data.address)      payload.address       = data.address;
-    if (data.city)         payload.city          = data.city;
-    if (data.state)        payload.state         = data.state;
-    if (data.zip)          payload.postalCode    = data.zip;
-    if (data.timezone)     payload.timezone      = data.timezone;
-    if (data.industry)     payload.businessType  = data.industry;
-    if (data.logoUrl)      payload.logoUrl       = data.logoUrl;
+    if (data.businessName) payload.name       = data.businessName;
+    if (data.ownerName) {
+      const spaceIdx       = data.ownerName.indexOf(' ');
+      payload.firstName    = spaceIdx === -1 ? data.ownerName : data.ownerName.slice(0, spaceIdx);
+      payload.lastName     = spaceIdx === -1 ? ''             : data.ownerName.slice(spaceIdx + 1);
+    }
+    if (data.email)        payload.email      = data.email;
+    if (data.phone)        payload.phone      = data.phone;
+    if (data.website)      payload.website    = data.website;
+    if (data.address)      payload.address    = data.address;
+    if (data.city)         payload.city       = data.city;
+    if (data.state)        payload.state      = data.state;
+    if (data.zip)          payload.postalCode = data.zip;
+    if (data.timezone)     payload.timezone   = data.timezone;
+    if (data.industry)     payload.industry   = data.industry;
+    if (data.logoUrl)      payload.logoUrl    = data.logoUrl;
 
     // Show loading
     document.getElementById('form-step-3').style.display = 'none';
